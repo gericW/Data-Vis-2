@@ -1,0 +1,22 @@
+age,percentage,type
+15-24,1.7,Owner without a mortgage
+25-34,2.9,Owner without a mortgage
+35-44,5.4,Owner without a mortgage
+45-54,15.2,Owner without a mortgage
+55-64,36.1,Owner without a mortgage
+65-74,68.1,Owner without a mortgage
+75>,79.4,Owner without a mortgage
+15-24,9.1,Owner with a mortgage
+25-34,37.8,Owner with a mortgage
+35-44,51.4,Owner with a mortgage
+45-54,56.6,Owner with a mortgage
+55-64,43.0,Owner with a mortgage
+65-74,13.4,Owner with a mortgage
+75>,3.7,Owner with a mortgage
+15-24,83.5,Renter
+25-34,55.7,Renter
+35-44,41.5,Renter
+45-54,26.3,Renter
+55-64,19.1,Renter
+65-74,16,Renter
+75>,12.9,Renter

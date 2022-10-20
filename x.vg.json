@@ -1,0 +1,53 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 300,
+  "height": 300,
+  "data": {
+    "url": "home.csv"
+  },
+  "transform": [
+    {
+      "lookup": "code",
+      "from": {
+        "data": {
+          "url": "ne_110m_admin_0_countries.json",
+          "format": { "type": "topojson", "feature": "world_map" }
+        },
+        "key": "properties.ADM0_A3",
+        "fields": ["properties", "type", "geometry"]
+      }
+    },
+    { "filter": "datum.year==year" }
+  ],
+  "params": [
+    {
+      "name": "year",
+      "value": 2010,
+      "bind": {
+        "input": "range",
+        "min": 2001,
+        "max": 2019,
+        "step": 1,
+        "name": "Select the year:"
+      }
+    }
+  ],
+  "projection": { "type": "naturalEarth1" },
+  "mark": "geoshape",
+  "encoding": {
+    "color": {
+      "field": "pop_val",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          10000000000, 30000000000, 100000000000, 300000000000, 1000000000000,
+          3000000000000, 10000000000000, 3000000000000
+        ]
+      }
+    },
+    "tooltip": [
+      { "field": "properties.NAME", "type": "nominal", "title": "country" },
+      { "field": "GDP (constant 2015 US$)", "type": "quantitative" }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 300,
+  "data": {
+    "url": "world_pol.csv"
+  },
+  "transform": [
+    {
+      "lookup": "code",
+      "from": {
+        "data": {
+          "url": "ne_110m_admin_0_countries.json",
+          "format": { "type": "topojson", "feature": "world_map" }
+        },
+        "key": "properties.ADM0_A3",
+        "fields": ["properties", "type", "geometry"]
+      }
+    },
+    { "filter": "datum.year==year" }
+  ],
+
+  "params": [
+    {
+      "name": "year",
+      "value": 2015,
+      "bind": {
+        "input": "range",
+        "min": 2010,
+        "max": 2021,
+        "step": 1,
+        "name": "Select the year:"
+      }
+    }
+  ],
+  "projection": { "type": "naturalEarth1" },
+  "mark": "geoshape",
+  "encoding": {
+    "color": {
+      "field": "pop_val",
+      "type": "quantitative",
+      "scale": {
+        "domainMin": 100000000,
+        "domainMid": 400000000,
+        "domainMax": 1400000000,
+        "range": ["#fdbe85", "#fd8d3c", "#e6550d", "#a63603"]
+      }
+    },
+    "tooltip": [
+      { "field": "properties.NAME", "type": "nominal", "title": "country" },
+      { "field": "pop_val", "type": "quantitative" }
+    ]
+  }
+}

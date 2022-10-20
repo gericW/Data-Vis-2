@@ -1,0 +1,21 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 200,
+  "data": {
+    "url": "homeowner_rate_by_age_edit.csv"
+  },
+  "mark": "bar",
+  "encoding": {
+    "y": { "field": "age" },
+    "x": { "field": "percentage", "type": "quantitative" },
+    "xOffset": { "field": "type" },
+    "color": {
+      "field": "type",
+      "scale": {
+        "range": ["#d55e00", "#009e73", "#0072b2"]
+      }
+    },
+    "tooltip": { "field": "percentage", "type": "quantitative" }
+  }
+}

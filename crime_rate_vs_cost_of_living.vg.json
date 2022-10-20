@@ -1,0 +1,72 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 300,
+  "data": {
+    "url": "crime_rate.csv"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [{ "field": "crimeIndex", "order": "descending" }]
+    },
+    {
+      "filter": "datum.rank < 10"
+    },
+    {
+      "lookup": "country",
+      "from": {
+        "data": {
+          "url": "Cost_of_Living_Index_2022.csv",
+          "format": {
+            "type": "csv",
+            "parse": {
+              "rank": "number",
+              "country": "string",
+              "crimeIndex": "number",
+              "pop2022": "number"
+            }
+          }
+        },
+        "key": "country",
+        "fields": ["CostofLivingIndex"]
+      }
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "filled": true,
+        "point": { "filled": false, "fill": "white" }
+      },
+      "encoding": {
+        "x": { "field": "country", "type": "nominal" },
+        "y": { "field": "crimeIndex", "type": "quantitative" },
+        "color": { "value": "#E1BE6A" }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "isValid(datum.CostofLivingIndex)"
+        }
+      ],
+      "mark": {
+        "type": "area",
+        "filled": true,
+        "point": { "filled": false, "fill": "white" }
+      },
+      "encoding": {
+        "x": { "field": "country", "type": "nominal" },
+        "y": { "field": "CostofLivingIndex", "type": "quantitative" },
+        "color": { "value": "#40B0A6" }
+      }
+    }
+  ]
+}
